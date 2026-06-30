@@ -278,6 +278,60 @@ final class AuthService: NSObject, ObservableObject {
         }
     }
 
+    // MARK: - Email/Password Sign-in
+
+    /// Sign in with an email and password — the same account a user created on
+    /// the web. Stores the session identically to Sign in with Apple, so the
+    /// account's subscription tier (including a web Helvetra+) is honored.
+    func login(email: String, password: String) async throws {
+        isLoading = true
+        errorMessage = nil
+        defer { isLoading = false }
+
+        let url = URL(string: "\(baseURL)/auth/login")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        // use_cookie=false so the refresh token is returned in the body for
+        // Keychain storage rather than set as a cookie (the web's flow).
+        struct LoginRequest: Encodable {
+            let email: String
+            let password: String
+            let use_cookie: Bool = false
+        }
+        request.httpBody = try JSONEncoder().encode(LoginRequest(email: email, password: password))
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw AuthError.networkError
+        }
+
+        guard httpResponse.statusCode == 200 else {
+            // Surface the real backend message (invalid credentials, rate
+            // limit, unverified email) from the normalized error envelope.
+            if let errorResponse = try? JSONDecoder().decode(AuthAPIResponse.self, from: data),
+               let error = errorResponse.error
+            {
+                throw AuthError.serverError(error.message ?? "Sign-in failed")
+            }
+            throw AuthError.httpError(statusCode: httpResponse.statusCode)
+        }
+
+        let authResponse = try JSONDecoder().decode(AuthAPIResponse.self, from: data)
+
+        guard authResponse.success,
+              let responseData = authResponse.data,
+              let user = responseData.user,
+              let tokens = responseData.tokens
+        else {
+            throw AuthError.invalidResponse
+        }
+
+        saveSession(user: user, tokens: tokens)
+    }
+
     // MARK: - Backend Authentication
 
     private func authenticateWithBackend(identityToken: String, userName: String?) async throws {

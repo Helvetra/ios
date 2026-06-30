@@ -1554,6 +1554,7 @@ struct SettingsView: View {
     @State private var showSubscription: Bool = false
     @State private var showDeleteConfirmation: Bool = false
     @State private var showEmailCopied: Bool = false
+    @State private var showLogin: Bool = false
 
     private var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
@@ -1589,6 +1590,21 @@ struct SettingsView: View {
                             title: L10n.planName(storeService.currentTier.rawValue),
                             subtitle: nil
                         )
+
+                        Button(action: { showLogin = true }) {
+                            HStack {
+                                Image(systemName: "person.crop.circle.badge.plus")
+                                    .foregroundStyle(Colors.textSecondaryAdaptive)
+                                Text(L10n.signIn)
+                                    .font(Typography.bodyMedium)
+                                    .foregroundStyle(Colors.textPrimaryAdaptive)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .foregroundStyle(Colors.textSecondaryAdaptive)
+                            }
+                            .padding(.vertical, Spacing.xs)
+                        }
                     }
 
                     // Usage bar (shown for all users)
@@ -1712,6 +1728,9 @@ struct SettingsView: View {
                 .padding(.bottom, 250) // Extra space to scroll content above L1 card
             }
             .padding(.horizontal, Spacing.screenPadding)
+        }
+        .sheet(isPresented: $showLogin) {
+            LoginView()
         }
         .sheet(isPresented: $showSubscription) {
             SubscriptionView()
@@ -2264,6 +2283,148 @@ enum TranslationError: LocalizedError {
         case .apiError(_, let message):
             return message
         }
+    }
+}
+
+// MARK: - Sign In
+
+/// Email/password (and Apple) sign-in. Lets a user sign into the iOS app with
+/// the Helvetra account they created on the web, so their subscription carries
+/// across platforms. See helvetra/ios-app#69.
+struct LoginView: View {
+    @Environment(\.dismiss) private var dismiss
+    @ObservedObject private var authService = AuthService.shared
+
+    @State private var email: String = ""
+    @State private var password: String = ""
+    @State private var isSubmitting: Bool = false
+    @State private var errorText: String?
+
+    private var canSubmit: Bool {
+        !email.trimmingCharacters(in: .whitespaces).isEmpty
+            && !password.isEmpty
+            && !isSubmitting
+    }
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: Spacing.lg) {
+                    Text(L10n.loginSubtitle)
+                        .font(Typography.bodyMedium)
+                        .foregroundStyle(Colors.textSecondaryAdaptive)
+
+                    VStack(spacing: Spacing.sm) {
+                        TextField(L10n.loginEmail, text: $email)
+                            .textContentType(.username)
+                            .keyboardType(.emailAddress)
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled(true)
+                            .fieldStyle()
+
+                        SecureField(L10n.loginPassword, text: $password)
+                            .textContentType(.password)
+                            .fieldStyle()
+                            .onSubmit(submit)
+                    }
+
+                    if let errorText {
+                        Text(errorText)
+                            .font(Typography.bodySmall)
+                            .foregroundStyle(.red)
+                    }
+
+                    Button(action: submit) {
+                        HStack(spacing: Spacing.xs) {
+                            if isSubmitting {
+                                ProgressView().tint(.white)
+                            }
+                            Text(L10n.loginButton)
+                                .font(Typography.bodyLarge.weight(.semibold))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, Spacing.sm)
+                        .background(Colors.swissRed.opacity(canSubmit ? 1 : 0.5))
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: Spacing.buttonRadius))
+                    }
+                    .disabled(!canSubmit)
+
+                    HStack(spacing: Spacing.sm) {
+                        Rectangle().fill(Colors.textSecondaryAdaptive.opacity(0.2)).frame(height: 1)
+                        Text(L10n.loginOr)
+                            .font(Typography.caption)
+                            .foregroundStyle(Colors.textSecondaryAdaptive)
+                        Rectangle().fill(Colors.textSecondaryAdaptive.opacity(0.2)).frame(height: 1)
+                    }
+
+                    Button(action: signInWithApple) {
+                        HStack(spacing: Spacing.xs) {
+                            Image(systemName: "applelogo")
+                            Text(L10n.loginApple)
+                                .font(Typography.bodyLarge.weight(.semibold))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, Spacing.sm)
+                        .background(Colors.textPrimaryAdaptive)
+                        .foregroundStyle(Colors.backgroundAdaptive)
+                        .clipShape(RoundedRectangle(cornerRadius: Spacing.buttonRadius))
+                    }
+                    .disabled(isSubmitting)
+                }
+                .padding(Spacing.screenPadding)
+            }
+            .background(Colors.backgroundAdaptive)
+            .navigationTitle(L10n.loginTitle)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(L10n.loginCancel) { dismiss() }
+                }
+            }
+        }
+    }
+
+    private func submit() {
+        guard canSubmit else { return }
+        errorText = nil
+        isSubmitting = true
+        Task {
+            do {
+                try await authService.login(
+                    email: email.trimmingCharacters(in: .whitespaces),
+                    password: password
+                )
+                isSubmitting = false
+                dismiss()
+            } catch {
+                isSubmitting = false
+                errorText = (error as? AuthError)?.errorDescription ?? L10n.loginErrorGeneric
+            }
+        }
+    }
+
+    private func signInWithApple() {
+        errorText = nil
+        Task {
+            do {
+                try await authService.signInWithApple()
+                dismiss()
+            } catch {
+                errorText = (error as? AuthError)?.errorDescription ?? L10n.loginErrorGeneric
+            }
+        }
+    }
+}
+
+private extension View {
+    /// Shared styling for the login text fields.
+    func fieldStyle() -> some View {
+        self
+            .font(Typography.bodyLarge)
+            .padding(Spacing.sm)
+            .background(Colors.surfaceAdaptive)
+            .clipShape(RoundedRectangle(cornerRadius: Spacing.buttonRadius))
     }
 }
 

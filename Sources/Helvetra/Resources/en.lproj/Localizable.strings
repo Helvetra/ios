@@ -132,3 +132,15 @@
 "error.translation.failed" = "Translation failed";
 "error.verification.failed" = "Transaction verification failed";
 "error.purchase.failed" = "Purchase could not be completed";
+
+// Sign in (cross-platform accounts)
+"settings.account.signin" = "Sign In";
+"login.title" = "Sign in";
+"login.subtitle" = "Sign in with your Helvetra account to use it across web and iOS.";
+"login.email" = "Email";
+"login.password" = "Password";
+"login.button" = "Sign In";
+"login.apple" = "Sign in with Apple";
+"login.or" = "or";
+"login.cancel" = "Cancel";
+"login.error.generic" = "Could not sign in. Please try again.";

@@ -63,6 +63,18 @@ enum L10n {
     }
     static let upgrade = NSLocalizedString("settings.account.upgrade", comment: "")
     static let signOut = NSLocalizedString("settings.account.signout", comment: "")
+    static let signIn = NSLocalizedString("settings.account.signin", comment: "")
+
+    // Sign in
+    static let loginTitle = NSLocalizedString("login.title", comment: "")
+    static let loginSubtitle = NSLocalizedString("login.subtitle", comment: "")
+    static let loginEmail = NSLocalizedString("login.email", comment: "")
+    static let loginPassword = NSLocalizedString("login.password", comment: "")
+    static let loginButton = NSLocalizedString("login.button", comment: "")
+    static let loginApple = NSLocalizedString("login.apple", comment: "")
+    static let loginOr = NSLocalizedString("login.or", comment: "")
+    static let loginCancel = NSLocalizedString("login.cancel", comment: "")
+    static let loginErrorGeneric = NSLocalizedString("login.error.generic", comment: "")
 
     // Preferences
     static let preferencesTitle = NSLocalizedString("settings.preferences.title", comment: "")

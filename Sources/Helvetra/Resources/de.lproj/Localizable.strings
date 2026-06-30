@@ -132,3 +132,15 @@
 "error.translation.failed" = "Übersetzung fehlgeschlagen";
 "error.verification.failed" = "Transaktionsverifizierung fehlgeschlagen";
 "error.purchase.failed" = "Kauf konnte nicht abgeschlossen werden";
+
+// Sign in (cross-platform accounts)
+"settings.account.signin" = "Anmelden";
+"login.title" = "Anmelden";
+"login.subtitle" = "Melde dich mit deinem Helvetra-Konto an, um es im Web und auf iOS zu nutzen.";
+"login.email" = "E-Mail";
+"login.password" = "Passwort";
+"login.button" = "Anmelden";
+"login.apple" = "Mit Apple anmelden";
+"login.or" = "oder";
+"login.cancel" = "Abbrechen";
+"login.error.generic" = "Anmeldung fehlgeschlagen. Bitte versuche es erneut.";

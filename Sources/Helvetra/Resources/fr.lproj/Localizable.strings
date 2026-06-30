@@ -132,3 +132,15 @@
 "error.translation.failed" = "La traduction a échoué";
 "error.verification.failed" = "La vérification de la transaction a échoué";
 "error.purchase.failed" = "L'achat n'a pas pu être finalisé";
+
+// Sign in (cross-platform accounts)
+"settings.account.signin" = "Se connecter";
+"login.title" = "Se connecter";
+"login.subtitle" = "Connectez-vous avec votre compte Helvetra pour l'utiliser sur le web et iOS.";
+"login.email" = "E-mail";
+"login.password" = "Mot de passe";
+"login.button" = "Se connecter";
+"login.apple" = "Se connecter avec Apple";
+"login.or" = "ou";
+"login.cancel" = "Annuler";
+"login.error.generic" = "Connexion impossible. Veuillez réessayer.";
