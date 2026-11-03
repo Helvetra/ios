@@ -55,7 +55,7 @@ SIMPLE BY DESIGN
 One purpose, done well. No chat history. No tracking. No bloat. Just fast, accurate translation.
 
 FREE TO USE
-• 20,000 characters per month free
+• 5,000 characters per month free
 • Helvetra+ for power users: 500,000 characters
 
 SUPPORTED LANGUAGES
@@ -110,7 +110,7 @@ EINFACH GEHALTEN
 Ein Zweck, gut gemacht. Kein Chat-Verlauf. Kein Tracking. Kein Ballast. Einfach schnelle, präzise Übersetzung.
 
 GRATIS NUTZBAR
-• 20'000 Zeichen pro Monat gratis
+• 5'000 Zeichen pro Monat gratis
 • Helvetra+ für Power-User: 500'000 Zeichen
 
 UNTERSTÜTZTE SPRACHEN
@@ -165,7 +165,7 @@ SIMPLE PAR CONCEPTION
 Un seul but, bien fait. Pas d'historique. Pas de tracking. Pas de superflu. Juste une traduction rapide et précise.
 
 GRATUIT
-• 20'000 caractères par mois gratuits
+• 5'000 caractères par mois gratuits
 • Helvetra+ pour les utilisateurs intensifs: 500'000 caractères
 
 LANGUES SUPPORTÉES
@@ -220,7 +220,7 @@ SEMPLICE PER DESIGN
 Uno scopo, fatto bene. Nessuna cronologia. Nessun tracciamento. Nessun eccesso. Solo traduzione veloce e precisa.
 
 GRATUITO
-• 20'000 caratteri al mese gratis
+• 5'000 caratteri al mese gratis
 • Helvetra+ per utenti intensivi: 500'000 caratteri
 
 LINGUE SUPPORTATE
