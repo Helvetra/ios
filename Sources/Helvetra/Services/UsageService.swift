@@ -9,6 +9,11 @@ final class UsageService: ObservableObject {
     @Published private(set) var charactersUsed: Int = 0
     @Published private(set) var charactersLimit: Int = 5_000
     @Published private(set) var charactersRemaining: Int = 5_000
+    /// Per-translation character limit for the current user.
+    @Published private(set) var perRequestLimit: Int = StoreService.SubscriptionTier.free.perRequestLimit
+    /// Whether the signed-in account has Helvetra+ from a purchase outside the
+    /// app (for example on helvetra.ch), so the app must not offer it again.
+    @Published private(set) var hasPlusFromAccount: Bool = false
     @Published private(set) var periodType: String = "monthly"
     @Published private(set) var resetAt: Date?
     @Published private(set) var isLoading: Bool = false
@@ -22,6 +27,11 @@ final class UsageService: ObservableObject {
     // Separate keys for Plus subscribers (so upgrading starts fresh)
     private let localPlusUsageKey = "helvetra.local.plus.charactersUsed"
     private let localPlusPeriodStartKey = "helvetra.local.plus.periodStart"
+
+    /// Whether the user has Helvetra+, bought in the app or on the website.
+    var isPlus: Bool {
+        StoreService.shared.currentTier == .plus || hasPlusFromAccount
+    }
 
     /// Usage as a percentage (0.0 to 1.0).
     var usagePercentage: Double {
@@ -84,6 +94,7 @@ final class UsageService: ObservableObject {
 
         if storeKitTier == .plus {
             // User has active StoreKit subscription - trust it
+            perRequestLimit = StoreService.SubscriptionTier.plus.perRequestLimit
             applyStoreKitSubscription()
             print("[Usage] Using StoreKit subscription limits: \(charactersLimit)")
             return
@@ -96,9 +107,12 @@ final class UsageService: ObservableObject {
         do {
             if isAuth {
                 try await fetchAuthenticatedUsage()
+                try await fetchAuthenticatedLimits()
             } else {
                 // iOS app anonymous users get FREE tier limits (5k/month)
                 // No need to call backend - we don't track usage for iOS anonymous users
+                hasPlusFromAccount = false
+                perRequestLimit = StoreService.SubscriptionTier.free.perRequestLimit
                 applyFreeUserLimits()
             }
             print("[Usage] Updated: \(charactersUsed)/\(charactersLimit)")
@@ -244,6 +258,26 @@ final class UsageService: ObservableObject {
         }
     }
 
+    /// Fetch the signed-in account's plan limits, which also reflect a
+    /// Helvetra+ subscription bought on the website.
+    private func fetchAuthenticatedLimits() async throws {
+        guard let accessToken = await AuthService.shared.getAccessToken() else { return }
+
+        var request = URLRequest(url: URL(string: "\(baseURL)/subscription/limits")!)
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+
+        let (data, response) = try await session.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            print("[Usage] ERROR: Failed to fetch account limits")
+            return
+        }
+
+        let limits = try JSONDecoder().decode(TierLimitsResponse.self, from: data)
+        perRequestLimit = limits.max_chars_per_request
+        hasPlusFromAccount = limits.tier == "pro"
+        print("[Usage] Account limits: tier=\(limits.tier), per request=\(limits.max_chars_per_request)")
+    }
+
     /// Fetch usage for anonymous users (tracked by IP).
     private func fetchAnonymousUsage() async throws {
         let url = URL(string: "\(baseURL)/subscription/anonymous-usage")!
@@ -286,6 +320,11 @@ private struct AuthenticatedUsageResponse: Decodable {
     let can_translate: Bool
     let period_start: Int?
     let period_end: Int?
+}
+
+private struct TierLimitsResponse: Decodable {
+    let tier: String
+    let max_chars_per_request: Int
 }
 
 private struct AnonymousUsageResponse: Decodable {

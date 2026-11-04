@@ -447,12 +447,14 @@ struct ContentView: View {
         cachedPerRequestLimit
     }
 
-    /// Show counter when approaching per-request limit.
-    private let counterWarningThreshold: Int = 800
+    /// Show the counter from 80% of the per-request limit.
+    private var counterWarningThreshold: Int {
+        perRequestLimit * 4 / 5
+    }
 
     // MARK: - Computed Properties
 
-    /// Whether to show the character counter (> 800 chars).
+    /// Whether to show the character counter (from 80% of the limit).
     private var showCharacterCounter: Bool {
         viewModel.sourceText.count > counterWarningThreshold
     }
@@ -1046,14 +1048,18 @@ struct ContentView: View {
             // These values are accessed in computed properties - direct service access
             // would trigger service initialization during view rendering.
             cachedIsAuthenticated = AuthService.shared.isAuthenticated
-            cachedPerRequestLimit = StoreService.shared.currentTier.perRequestLimit
+            cachedPerRequestLimit = UsageService.shared.perRequestLimit
             cachedCharactersRemaining = UsageService.shared.charactersRemaining
+        }
+        // The account's limit arrives asynchronously after sign-in or launch.
+        .onReceive(UsageService.shared.$perRequestLimit) { limit in
+            cachedPerRequestLimit = limit
         }
         .onChange(of: isSettingsOpen) { _, isOpen in
             // Refresh cached values when settings closes (handles post-purchase updates)
             if !isOpen {
                 cachedIsAuthenticated = AuthService.shared.isAuthenticated
-                cachedPerRequestLimit = StoreService.shared.currentTier.perRequestLimit
+                cachedPerRequestLimit = UsageService.shared.perRequestLimit
                 cachedCharactersRemaining = UsageService.shared.charactersRemaining
             }
         }
@@ -1551,6 +1557,13 @@ struct SettingsView: View {
     @ObservedObject private var storeService = StoreService.shared
     @ObservedObject private var authService = AuthService.shared
     @ObservedObject private var usageService = UsageService.shared
+
+    /// Plan shown in the account row: Helvetra+ also when bought on the website.
+    private var currentPlanName: String {
+        usageService.isPlus
+            ? StoreService.SubscriptionTier.plus.rawValue
+            : StoreService.SubscriptionTier.free.rawValue
+    }
     @State private var showSubscription: Bool = false
     @State private var showDeleteConfirmation: Bool = false
     @State private var showEmailCopied: Bool = false
@@ -1581,7 +1594,7 @@ struct SettingsView: View {
                         SettingsRow(
                             icon: "person.circle.fill",
                             title: user.email,
-                            subtitle: L10n.planName(storeService.currentTier.rawValue)
+                            subtitle: L10n.planName(currentPlanName)
                         )
                     } else {
                         // Signed out state
@@ -1610,7 +1623,7 @@ struct SettingsView: View {
                     // Usage bar (shown for all users)
                     UsageBarView(usageService: usageService)
 
-                    if storeService.currentTier == .free {
+                    if !usageService.isPlus {
                         Button(action: { showSubscription = true }) {
                             HStack {
                                 Image(systemName: "arrow.up.circle.fill")
@@ -2025,7 +2038,7 @@ class TranslationViewModel: ObservableObject {
         guard !text.isEmpty else { return }
 
         // Skip translation if over any limit (UI shows upgrade prompt)
-        let perRequestLimit = StoreService.shared.currentTier.perRequestLimit
+        let perRequestLimit = UsageService.shared.perRequestLimit
         guard text.count <= perRequestLimit else { return }
         guard UsageService.shared.charactersRemaining > 0 else { return }
 
