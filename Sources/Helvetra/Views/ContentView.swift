@@ -15,7 +15,7 @@ final class StoreService: ObservableObject {
         /// Monthly character limit (matches backend tiers.py).
         var characterLimit: Int {
             switch self {
-            case .free: return 20_000
+            case .free: return 5_000
             case .plus: return 500_000
             }
         }
@@ -23,7 +23,7 @@ final class StoreService: ObservableObject {
         /// Per-request character limit (matches backend tiers.py).
         var perRequestLimit: Int {
             switch self {
-            case .free: return 1_000
+            case .free: return 500
             case .plus: return 5_000
             }
         }
@@ -404,8 +404,8 @@ struct ContentView: View {
 
     // Cached service values to avoid re-render cascades from ObservableObject access
     @State private var cachedIsAuthenticated: Bool = false
-    @State private var cachedPerRequestLimit: Int = 1000
-    @State private var cachedCharactersRemaining: Int = 20000
+    @State private var cachedPerRequestLimit: Int = 500
+    @State private var cachedCharactersRemaining: Int = 5000
 
     // MARK: - Helpers
 
