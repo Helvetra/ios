@@ -7,8 +7,8 @@ final class UsageService: ObservableObject {
     static let shared = UsageService()
 
     @Published private(set) var charactersUsed: Int = 0
-    @Published private(set) var charactersLimit: Int = 20_000
-    @Published private(set) var charactersRemaining: Int = 20_000
+    @Published private(set) var charactersLimit: Int = 5_000
+    @Published private(set) var charactersRemaining: Int = 5_000
     @Published private(set) var periodType: String = "monthly"
     @Published private(set) var resetAt: Date?
     @Published private(set) var isLoading: Bool = false
@@ -29,7 +29,7 @@ final class UsageService: ObservableObject {
         return min(1.0, Double(charactersUsed) / Double(charactersLimit))
     }
 
-    /// Formatted usage string (e.g., "5.2k / 20k").
+    /// Formatted usage string (e.g., "1.2k / 5k").
     var usageText: String {
         "\(formatNumber(charactersUsed)) / \(formatNumber(charactersLimit))"
     }
@@ -97,7 +97,7 @@ final class UsageService: ObservableObject {
             if isAuth {
                 try await fetchAuthenticatedUsage()
             } else {
-                // iOS app anonymous users get FREE tier limits (20k/month)
+                // iOS app anonymous users get FREE tier limits (5k/month)
                 // No need to call backend - we don't track usage for iOS anonymous users
                 applyFreeUserLimits()
             }
@@ -145,7 +145,7 @@ final class UsageService: ObservableObject {
         print("[Usage] Local Plus tier: \(charactersUsed)/\(charactersLimit)")
     }
 
-    /// Apply FREE tier limits for iOS anonymous users (20k/month, rolling 30-day period).
+    /// Apply FREE tier limits for iOS anonymous users (5k/month, rolling 30-day period).
     private func applyFreeUserLimits() {
         let defaults = UserDefaults.standard
         let now = Date()
@@ -169,7 +169,7 @@ final class UsageService: ObservableObject {
 
         // Load usage from local storage
         charactersUsed = defaults.integer(forKey: localUsageKey)
-        charactersLimit = 20_000
+        charactersLimit = StoreService.SubscriptionTier.free.characterLimit
         charactersRemaining = max(0, charactersLimit - charactersUsed)
         periodType = "monthly"
 
