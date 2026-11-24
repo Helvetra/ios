@@ -490,7 +490,7 @@ struct ContentView: View {
     private var isKeyboardVisible: Bool { keyboardHeight > 0 }
 
     /// Languages that have formality or dialect settings.
-    private let languagesWithSettings: Set<String> = ["de", "fr", "it", "gsw"]
+    private let languagesWithSettings: Set<String> = ["de", "fr", "it", "gsw", "rm", "sq", "pt", "es", "hr", "sr"]
 
     /// Whether source language has additional settings (formality/dialect).
     private var sourceHasSettings: Bool {
@@ -1083,13 +1083,13 @@ struct LanguagePickerSheet: View {
     @State private var pendingLanguage: String? = nil
 
     /// Language codes in display order.
-    let languageCodes = ["en", "de", "fr", "it", "gsw", "rm"]
+    let languageCodes = ["en", "de", "fr", "it", "gsw", "rm", "sq", "pt", "es", "hr", "sr"]
 
     /// Dialect codes in display order.
     let dialectCodes = ["zurich", "bern", "basel", "luzern", "stgallen", "wallis"]
 
     private let languagesWithDialect: Set<String> = ["gsw"]
-    private let languagesWithFormality: Set<String> = ["de", "fr", "it", "gsw"]
+    private let languagesWithFormality: Set<String> = ["de", "fr", "it", "gsw", "rm", "sq", "pt", "es", "hr", "sr"]
 
     private var showingSettings: Bool { pendingLanguage != nil }
     private var needsDialect: Bool { languagesWithDialect.contains(pendingLanguage ?? "") }
@@ -1171,7 +1171,7 @@ struct LanguagePickerSheet: View {
 
     private func settingsView(for languageCode: String) -> some View {
         List {
-            // Formality section (for DE, FR, IT, GSW)
+            // Formality section (every target language with a T-V distinction)
             if languagesWithFormality.contains(languageCode) {
                 Section {
                     Button(action: { selectedFormality = "formal" }) {

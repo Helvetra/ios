@@ -11,13 +11,16 @@ enum LanguageDetectionService {
     private static let minConfidence: Double = 0.5
 
     /// Map NLLanguage to our language codes.
-    /// Note: Apple's NaturalLanguage doesn't support Romansh (rm) or Swiss German (gsw).
-    /// These will fall back to backend LLM detection which handles them correctly.
+    /// Note: Apple's NaturalLanguage doesn't support Romansh (rm), Swiss German (gsw)
+    /// or Albanian (sq), and can't reliably tell Croatian (hr) from Serbian (sr).
+    /// These fall back to backend LLM detection, which handles them correctly.
     private static let languageMap: [NLLanguage: String] = [
         .english: "en",
         .german: "de",
         .french: "fr",
         .italian: "it",
+        .portuguese: "pt",
+        .spanish: "es",
     ]
 
     /// Detect language from text.
