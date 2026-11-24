@@ -11,7 +11,7 @@ Native iOS app for [Helvetra](https://helvetra.ch), a privacy-first Swiss transl
 - Sign in with Apple, or email and password (the same account as on the web)
 - StoreKit 2 in-app subscriptions. Server-side verification of App Store purchases is currently switched off on the backend while it is rewritten against Apple's certificate chain
 - VoiceOver labels on the translation screen
-- App interface in 4 languages (English, German, French, Italian); translation between 6 (those four plus Romansh and Swiss German)
+- App interface in 4 languages (English, German, French, Italian); translation between 11 (those four plus Romansh, Swiss German, Albanian, Portuguese, Spanish, Croatian and Serbian)
 
 ## Tech Stack
 

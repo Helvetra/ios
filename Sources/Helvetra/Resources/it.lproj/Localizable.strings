@@ -23,6 +23,11 @@
 "language.it" = "Italiano";
 "language.gsw" = "Svizzero tedesco";
 "language.rm" = "Romancio";
+"language.sq" = "Albanese";
+"language.pt" = "Portoghese";
+"language.es" = "Spagnolo";
+"language.hr" = "Croato";
+"language.sr" = "Serbo";
 
 "language.picker.title" = "Seleziona lingua";
 "language.picker.source" = "Lingua di partenza: %@";
