@@ -16,6 +16,52 @@
 
 ---
 
+## What's New (1.2.0)
+
+Paste into "What's New in This Version" for each locale.
+
+**EN**
+```
+New in Helvetra 1.2:
+
+* Five new languages: Albanian, Portuguese, Spanish, Croatian and Serbian
+* Formal or informal address for these languages and for Romansh
+* Your Helvetra+ plan from helvetra.ch now works in the app when you sign in
+* The app now shows the current free plan limits
+```
+
+**DE**
+```
+Neu in Helvetra 1.2:
+
+* Fünf neue Sprachen: Albanisch, Portugiesisch, Spanisch, Kroatisch und Serbisch
+* Förmliche oder informelle Anrede für diese Sprachen und für Rätoromanisch
+* Dein Helvetra+ Abo von helvetra.ch gilt jetzt auch in der App, wenn du dich anmeldest
+* Die App zeigt die aktuellen Limiten des Gratis-Abos
+```
+
+**FR**
+```
+Nouveautés de Helvetra 1.2 :
+
+* Cinq nouvelles langues : albanais, portugais, espagnol, croate et serbe
+* Vouvoiement ou tutoiement pour ces langues et pour le romanche
+* Votre abonnement Helvetra+ de helvetra.ch fonctionne désormais dans l'app une fois connecté
+* L'app affiche les limites actuelles de l'offre gratuite
+```
+
+**IT**
+```
+Novità di Helvetra 1.2:
+
+* Cinque nuove lingue: albanese, portoghese, spagnolo, croato e serbo
+* Forma di cortesia o informale per queste lingue e per il romancio
+* Il tuo abbonamento Helvetra+ di helvetra.ch ora funziona anche nell'app dopo l'accesso
+* L'app mostra i limiti attuali del piano gratuito
+```
+
+---
+
 ## English (EN)
 
 ### App Name (30 chars max)
@@ -35,7 +81,7 @@ dialect,zürich,bern,basel,mundart,secure,datenschutz,romansch,deepl,google,offl
 Your translations never leave Switzerland. Unlike Google or DeepL, Helvetra runs 100% on Swiss servers. No tracking. No data storage. Just private, accurate translation.
 
 SWISS GERMAN THAT ACTUALLY WORKS
-The only translator that understands Swiss German dialects:
+Translate into six regional Swiss German dialects:
 • Zürich
 • Bern
 • Basel
@@ -43,10 +89,10 @@ The only translator that understands Swiss German dialects:
 • St. Gallen
 • Wallis
 
-Translate from any language into authentic regional Swiss German — or between dialects.
+Translate from any supported language into authentic regional Swiss German, and Swiss German in any dialect into other languages.
 
 FORMAL OR INFORMAL
-Choose between formal (Sie/Vous/Lei) and informal (du/tu) modes. Perfect for business emails or casual messages.
+Choose formal or informal address (Sie/du, vous/tu, Lei/tu, usted/tú and more) in every language except English. Perfect for business emails or casual messages.
 
 POWERED BY SWISS AI
 Built on Apertus, the open-source AI developed by ETH Zurich and EPFL. Swiss engineering, Swiss values, 100% renewable energy.
@@ -59,7 +105,7 @@ FREE TO USE
 • Helvetra+ for power users: 500,000 characters
 
 SUPPORTED LANGUAGES
-German, French, Italian, English, Romansh, Swiss German — all combinations.
+German, Swiss German, French, Italian, Romansh, English, Albanian, Portuguese, Spanish, Croatian and Serbian. All combinations.
 
 Questions? Contact us at gruezi@helvetra.ch
 
@@ -81,16 +127,16 @@ Made in Switzerland
 
 ### Keywords (100 chars max)
 ```
-mundart,dialekt,züritüütsch,bärndütsch,datenschutz,sicher,deepl,google,offline,aargau,graubünden
+mundart,dialekt,züritüütsch,bärndütsch,datenschutz,sicher,deepl,google,offline,spanisch,graubünden
 ```
-(97 chars)
+(99 chars)
 
 ### Description
 ```
 Deine Übersetzungen verlassen die Schweiz nie. Anders als Google oder DeepL läuft Helvetra zu 100% auf Schweizer Servern. Kein Tracking. Keine Datenspeicherung. Einfach private, präzise Übersetzung.
 
 SCHWEIZERDEUTSCH, DAS WIRKLICH FUNKTIONIERT
-Der einzige Übersetzer, der Schweizer Dialekte versteht:
+Übersetze in sechs regionale Schweizer Dialekte:
 • Zürich
 • Bern
 • Basel
@@ -98,10 +144,10 @@ Der einzige Übersetzer, der Schweizer Dialekte versteht:
 • St. Gallen
 • Wallis
 
-Übersetze aus jeder Sprache in authentisches regionales Schweizerdeutsch — oder zwischen Dialekten.
+Übersetze aus jeder unterstützten Sprache in authentisches regionales Schweizerdeutsch, und Schweizerdeutsch in jedem Dialekt in andere Sprachen.
 
 FÖRMLICH ODER INFORMELL
-Wähle zwischen Sie und du. Perfekt für Geschäfts-E-Mails oder lockere Nachrichten.
+Wähle zwischen Sie und du, und in jeder Sprache ausser Englisch zwischen förmlicher und informeller Anrede. Perfekt für Geschäfts-E-Mails oder lockere Nachrichten.
 
 SCHWEIZER KI
 Basierend auf Apertus, der Open-Source-KI von ETH Zürich und EPFL. Schweizer Ingenieurskunst, Schweizer Werte, 100% erneuerbare Energie.
@@ -114,7 +160,7 @@ GRATIS NUTZBAR
 • Helvetra+ für Power-User: 500'000 Zeichen
 
 UNTERSTÜTZTE SPRACHEN
-Deutsch, Französisch, Italienisch, Englisch, Rätoromanisch, Schweizerdeutsch — alle Kombinationen.
+Deutsch, Schweizerdeutsch, Französisch, Italienisch, Rätoromanisch, Englisch, Albanisch, Portugiesisch, Spanisch, Kroatisch und Serbisch. Alle Kombinationen.
 
 Fragen? Kontaktiere uns unter gruezi@helvetra.ch
 
@@ -145,7 +191,7 @@ dialecte,zurich,berne,bâle,romanche,confidentiel,sécurisé,deepl,google,offlin
 Vos traductions ne quittent jamais la Suisse. Contrairement à Google ou DeepL, Helvetra fonctionne à 100% sur des serveurs suisses. Pas de tracking. Pas de stockage. Juste une traduction privée et précise.
 
 LE SUISSE ALLEMAND QUI FONCTIONNE VRAIMENT
-Le seul traducteur qui comprend les dialectes suisses allemands:
+Traduisez vers six dialectes suisses allemands régionaux:
 • Zürich
 • Berne
 • Bâle
@@ -153,10 +199,10 @@ Le seul traducteur qui comprend les dialectes suisses allemands:
 • Saint-Gall
 • Valais
 
-Traduisez depuis n'importe quelle langue vers un suisse allemand régional authentique — ou entre dialectes.
+Traduisez depuis n'importe quelle langue prise en charge vers un suisse allemand régional authentique, et du suisse allemand de n'importe quel dialecte vers les autres langues.
 
 FORMEL OU INFORMEL
-Choisissez entre le vouvoiement et le tutoiement. Parfait pour les e-mails professionnels ou les messages décontractés.
+Choisissez entre le vouvoiement et le tutoiement, dans toutes les langues sauf l'anglais. Parfait pour les e-mails professionnels ou les messages décontractés.
 
 PROPULSÉ PAR L'IA SUISSE
 Basé sur Apertus, l'IA open-source développée par l'ETH Zurich et l'EPFL. Ingénierie suisse, valeurs suisses, 100% énergie renouvelable.
@@ -169,7 +215,7 @@ GRATUIT
 • Helvetra+ pour les utilisateurs intensifs: 500'000 caractères
 
 LANGUES SUPPORTÉES
-Allemand, français, italien, anglais, romanche, suisse allemand — toutes les combinaisons.
+Allemand, suisse allemand, français, italien, romanche, anglais, albanais, portugais, espagnol, croate et serbe. Toutes les combinaisons.
 
 Des questions? Contactez-nous à gruezi@helvetra.ch
 
@@ -200,7 +246,7 @@ dialetto,zurigo,berna,basilea,romancio,sicuro,privacy,deepl,google,offline,valle
 Le tue traduzioni non lasciano mai la Svizzera. A differenza di Google o DeepL, Helvetra funziona al 100% su server svizzeri. Nessun tracking. Nessuna memorizzazione. Solo traduzione privata e precisa.
 
 LO SVIZZERO TEDESCO CHE FUNZIONA DAVVERO
-L'unico traduttore che capisce i dialetti svizzero tedeschi:
+Traduci in sei dialetti svizzero tedeschi regionali:
 • Zurigo
 • Berna
 • Basilea
@@ -208,10 +254,10 @@ L'unico traduttore che capisce i dialetti svizzero tedeschi:
 • San Gallo
 • Vallese
 
-Traduci da qualsiasi lingua in autentico svizzero tedesco regionale — o tra dialetti.
+Traduci da qualsiasi lingua supportata in autentico svizzero tedesco regionale, e lo svizzero tedesco di qualsiasi dialetto nelle altre lingue.
 
 FORMALE O INFORMALE
-Scegli tra il Lei e il tu. Perfetto per e-mail di lavoro o messaggi informali.
+Scegli tra il Lei e il tu, in tutte le lingue tranne l'inglese. Perfetto per e-mail di lavoro o messaggi informali.
 
 BASATO SU IA SVIZZERA
 Costruito su Apertus, l'IA open-source sviluppata dall'ETH di Zurigo e dall'EPFL. Ingegneria svizzera, valori svizzeri, 100% energia rinnovabile.
@@ -224,7 +270,7 @@ GRATUITO
 • Helvetra+ per utenti intensivi: 500'000 caratteri
 
 LINGUE SUPPORTATE
-Tedesco, francese, italiano, inglese, romancio, svizzero tedesco — tutte le combinazioni.
+Tedesco, svizzero tedesco, francese, italiano, romancio, inglese, albanese, portoghese, spagnolo, croato e serbo. Tutte le combinazioni.
 
 Domande? Contattaci a gruezi@helvetra.ch
 
@@ -244,9 +290,9 @@ Sviluppato in Svizzera
 
 ### Recommended: Up to 10 per locale
 1. Hero - Translation in action (German → Swiss German)
-2. Dialects - 6 dialect options (unique selling point)
+2. Dialects - 6 dialect options (more than any other translator we know of)
 3. Privacy - "Your words never leave Switzerland"
-4. Languages - All 6 languages supported
+4. Languages - All 11 languages supported
 5. Dark mode - Beautiful dark UI
 6. Formality - du/Sie toggle
 7. Settings - Clean settings with Sign in with Apple
